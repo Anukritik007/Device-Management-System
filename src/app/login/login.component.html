@@ -1,0 +1,26 @@
+
+  <div class="container color-light">
+    <div class="col">
+      <h2>Login</h2>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)">
+        <div class="form-group">
+            <label>UserName:</label>
+            <input type="text" #nameRef="ngModel" required name="userName" placeholder="Email Id" ngModel>
+            <div [hidden]='nameRef.valid || nameRef.pristine' class="alert alert-danger">
+              Please enter User Name
+            </div>
+        </div>
+        
+         <div class="form-group">
+             <label>Password: </label>
+              <input type="password" #passRef="ngModel" minlength="8" required name="password" placeholder="Password" ngModel>
+              
+              <div [hidden]='!passRef.error && (passRef.valid || passRef.pristine)' class="alert alert-danger" >
+              Please enter a valid Password
+            </div>
+         </div>
+            <input type="checkbox" name="admin" value="Admin" ngModel>Admin<br>
+        
+        <input [disabled]="!userForm.form.valid" type="submit" value="Login">
+      </form>
+    </div>

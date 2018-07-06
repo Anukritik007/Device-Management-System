@@ -8,6 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { AuthService } from './auth.service';
 import {Http,HttpModule} from '@angular/http';
+import {LocalStorageService} from './LocalStorageService';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './Interceptors/AuthInterceptor';
+import { HttpClientModule,HttpClient} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,10 +23,18 @@ import {Http,HttpModule} from '@angular/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
 
   ],
-  providers: [AuthService],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true,
+    },
+    
+    AuthService,LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

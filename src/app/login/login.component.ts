@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{Router} from '@angular/router'
 import {TokenParams} from '../Classes/TokenParams';
 import {AuthService} from '../auth.service';
+import {LocalStorageService} from '../LocalStorageService';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit
   password:string;
 
   constructor(private router:Router ,
-    private authService:AuthService)
+    private authService:AuthService,
+    private localstorageservice: LocalStorageService)
    {}
 
 
@@ -26,15 +28,16 @@ export class LoginComponent implements OnInit
         
         console.log(value)
         
-        // this.authService.login(this.username,this.password)
-        //   .subscribe(
-        //     data =>
-        //        {
+        this.authService.loginbyhttpclient(this.username,this.password)
+          .subscribe(
+             data =>
+            {
         //           this.tokenParam=data;
         //           this.authService.AccessToken =this.tokenParam.access_token;
-                  this.router.navigate(['chatbot']);
-        //        }
-        //   )
+                   this.localstorageservice.SetAuthorizationData(data);
+                    this.router.navigate(['chatbot']);
+               }
+          )
     }
 
   ngOnInit() {

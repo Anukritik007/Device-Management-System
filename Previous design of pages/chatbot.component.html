@@ -1,0 +1,57 @@
+<body>
+<div class="editor-container">
+    <div class="upside buttons" >
+     <button type="button" class="chat-support" (click)=chatDisplay() >Chat Support</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h2>User Information :</h2>
+    <br>
+    <h4>Username:</h4> 
+    <br>
+    <h4>Number of devices booked :</h4>
+    <br>
+    <br>
+    <br>
+    <button type="button" class=" btn-success " (click)=logout() >LOGOUT</button>
+</div>
+
+
+  <span [hidden]="!hid" class="chatbox blank"></span>
+  <span [hidden]="hid" class="chatbox">
+      
+      <div id="chatlogs" ngx-auto-scroll lock-y-offset="10" observe-attributes>
+         <div *ngFor="let text of msgs;" >
+              <div *ngIf="text.user=='Bot';then bot else user"></div>
+              <ng-template #bot>
+                  <div class="chat Bot">
+                      <div class="userPhoto">
+                          <figure class="avatar avatar-xl">
+                          <img src="../assets/bot.png" alt="BOT">
+                          </figure>
+                      </div>
+                      <p class="chatMessage">{{text.reply}}</p>
+                  </div>
+              </ng-template>
+              <ng-template #user>
+                  <div class="chat Self">
+                      <div class="userPhoto">
+                          <figure class="avatar avatar-xl">
+                          <img src="../assets/user.png" alt="USER">
+                          <i class="avatar-presence online"></i>
+                          </figure>
+                      </div>
+                      <p class="chatMessage">{{text.reply}}</p>
+                  </div>
+              </ng-template>    
+          </div>
+      </div>
+  
+      <div class="chatForm">
+          <textarea name="" [(ngModel)]="msg" #msgRef="ngModel"  required id="msg"></textarea>
+             <button [disabled]="!msgRef.valid"  id="send" (click)="send()">send</button>
+      </div>
+    </span>  
+</body>
+  

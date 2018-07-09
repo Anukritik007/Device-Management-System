@@ -20,21 +20,23 @@ export class AuthService{
         private httpclient:HttpClient)
     {}
 
-    private TokenAPI='http://httpbin.org/post';
-    private EmployeeAPI='http://localhost:1234';
+    private TokenAPI='http://8d72bf82.ngrok.io/HELLO';
+    private EmployeeAPI='';
 
     login(Username:string,Password:string):Observable<TokenParams>
     {
         var headersForTokenAPI = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
         var data="grant_type=password&username=" +Username + "&password="+Password;
 
-        return this.http.post(this.TokenAPI,data,{headers:headersForTokenAPI})
+        return this.http.post(this.TokenAPI,data)
         .map(res => res.json());
+        
     }
 
     loginbyhttpclient(Username:string,Password:string):Observable<TokenParams>
     {
-        var data ="grant_type=password&username=" +Username + "&password="+Password;
+        //var data ="grant_type=password&username=" +Username + "&password="+Password;
+        var data="hello how r";
         return this.httpclient.post<TokenParams>(this.TokenAPI,data);
     }
 

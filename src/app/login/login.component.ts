@@ -28,17 +28,20 @@ export class LoginComponent implements OnInit
         
         console.log(value)
         
-        this.authService.loginbyhttpclient(this.username,this.password)
+        this.authService.login(this.username,this.password)
           .subscribe(
              data =>
             {
-        //           this.tokenParam=data;
-        //           this.authService.AccessToken =this.tokenParam.access_token;
+                  this.tokenParam=data;
+                  this.authService.AccessToken =this.tokenParam.access_token;
                    this.localstorageservice.SetAuthorizationData(data);
                     this.router.navigate(['chatbot']);
+
                }
+
           )
-    }
+          console.log(this.tokenParam);
+     }
 
   ngOnInit() {
   }
